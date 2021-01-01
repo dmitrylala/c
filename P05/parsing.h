@@ -1,10 +1,9 @@
 #include <ctype.h>
-#include <unistd.h>
 
 #include "polis.h"
 
+
 // errors
-#define SYNTAX_ERROR 1
 #define BRACKETS_DISBALANCE_MISSING_CLOSE 2
 #define BRACKETS_DISBALANCE_MISSING_OPEN 3
 #define INVALID_OPERATION 4
@@ -16,9 +15,7 @@
 #define ERR_OPENING_FILE 10
 
 
-
-
-// parameteres
+// constants
 #define BUF_INIT_SIZE 128
 
 
@@ -99,12 +96,3 @@ add_buf(Data *data, char c);
 
 int
 dump_buf(Data *data, Polis *polis);
-
-char *
-str_clear_spaces_begin(char *str);
-
-int
-str_check_spaces(char *str);
-
-char *
-str_clear_spaces(char *str);
