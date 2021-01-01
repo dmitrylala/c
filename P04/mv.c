@@ -63,20 +63,22 @@ int main(int argc, char **argv) {
         }
 
         char *file_old_prev = NULL;
-        char *str = strdup(file_old);
+        char *str = malloc(strlen(file_old) + 1);
+        strcpy(str, file_old);
 
         str = strtok(str, "/\0");
-        do {
+        while (str != NULL) {
             file_old_prev = str;
             str = strtok(NULL, "/\0");
-        } while (str != NULL);
-
-        free(str);
+        }
 
         file_new = strcat(file_new, file_old_prev);
 
         ERR_MSG((fd_new = creat(file_new, s_old.st_mode)),
                     "mv: err creating file\n", ERR_CREATING_FILE);
+
+        free(file_old_prev);
+        free(str);
 
     // else if file_new already exists
     } else if (flag_reg == 1) {

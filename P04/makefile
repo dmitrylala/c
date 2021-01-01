@@ -5,10 +5,8 @@ all: grep tail mv
 
 grep:
 	$(COMPILER) $(COMPILER_FLAGS) grep.c -o grep
-
 tail:
 	$(COMPILER) $(COMPILER_FLAGS) tail.c -o tail
-
 mv:
 	$(COMPILER) $(COMPILER_FLAGS) mv.c -o mv
 
