@@ -20,15 +20,43 @@ struct tree
     struct tree *parent;
 };
 
-void tree_add(struct tree **, char);
-void tree_form(struct tree **, char);
-void tree_delete(struct tree *);
-void print_depth(struct tree **);
+void tree_add(struct tree **tr, char c);
+void tree_form(struct tree **tr, char c);
+void tree_delete(struct tree *tr);
+void print_depth(struct tree **tr);
 
+
+int main(void) {
+    struct tree *my_tree = NULL;
+    char str[MAXLEN];
+
+    // String input
+    fgets(str, MAXLEN, stdin);
+    int len = strlen(str);
+    if (str[len - 1] == '\n') {
+        str[len - 1] = '\0';
+    }
+
+    // Tree creating
+    for (int i = 0; i < len; ++i) {
+        tree_form(&my_tree, str[i]);
+    }
+
+    // Result
+    printf("%s\n", str);
+    print_depth(&my_tree);
+
+    // Tree deleting
+    tree_delete(my_tree);
+
+    return 0;
+}
 
 // Adding an element
-void tree_add(struct tree **tr, char c) {
-    (*tr) = (struct tree*)malloc(sizeof(struct tree));
+void
+tree_add(struct tree **tr, char c)
+{
+    (*tr) = malloc(sizeof **tr);
     (*tr) -> left = NULL;
     (*tr) -> right = NULL;
     (*tr) -> parent = NULL;
@@ -37,7 +65,9 @@ void tree_add(struct tree **tr, char c) {
 }
 
 // Tree creation (recursively) with parents
-void tree_form(struct tree **tr, char c) {
+void
+tree_form(struct tree **tr, char c)
+{
     if ((*tr) == NULL) {
         tree_add(tr, c);
     }
@@ -46,16 +76,16 @@ void tree_form(struct tree **tr, char c) {
         (*tr) -> n += 1;
     } else if (((unsigned char)((*tr) -> c) < (unsigned char)c) &&
                 ((*tr) -> right == NULL)) {
-        struct tree *new_tr = (struct tree*)malloc(sizeof(struct tree));
+        struct tree *new_tr = malloc(sizeof *new_tr);
         (*tr) -> right = new_tr;
         new_tr -> left = NULL;
         new_tr -> right = NULL;
         new_tr -> parent = *tr;
         new_tr -> c = c;
         new_tr -> n = 1;
-    } else if (((unsigned char)((*tr) -> c) > (unsigned char)c)
-                && ((*tr) -> left == NULL)) {
-        struct tree *new_tr = (struct tree*)malloc(sizeof(struct tree));
+    } else if (((unsigned char)((*tr) -> c) > (unsigned char)c) &&
+                ((*tr) -> left == NULL)) {
+        struct tree *new_tr = malloc(sizeof *new_tr);
         (*tr) -> left = new_tr;
         new_tr -> left = NULL;
         new_tr -> right = NULL;
@@ -73,11 +103,13 @@ void tree_form(struct tree **tr, char c) {
 
 
 // Tree deleting (non-recursively)
-void tree_delete(struct tree *tr) {
+void
+tree_delete(struct tree *tr)
+{
     struct tree *node = tr;
     struct tree *parent;
 
-    while(1) {
+    while (1) {
         while (!((node -> left == NULL) && (node -> right == NULL))) {
             if (node -> left != NULL) {
                 node = node -> left;
@@ -105,7 +137,9 @@ void tree_delete(struct tree *tr) {
 }
 
 // Print in depth
-void print_depth(struct tree **tr) {
+void
+print_depth(struct tree **tr)
+{
     if (tr != NULL) {
         if ((*tr) -> right != NULL) {
             print_depth(&((*tr) -> right));
@@ -115,30 +149,4 @@ void print_depth(struct tree **tr) {
             print_depth(&((*tr)->left));
         }
     }
-}
-
-int main(void) {
-    struct tree *my_tree = NULL;
-    char str[MAXLEN];
-
-    // String input
-    fgets(str, MAXLEN, stdin);
-    int len = strlen(str);
-    if (str[len - 1] == '\n') {
-        str[len - 1] = '\0';
-    }
-
-    // Tree creating
-    for(int i = 0; i < len; ++i) {
-        tree_form(&my_tree, str[i]);
-    }
-
-    // Result
-    printf("%s\n", str);
-    print_depth(&my_tree);
-
-    // Tree deleting
-    tree_delete(my_tree);
-
-    return 0;
 }

@@ -17,11 +17,8 @@ int count_sigint = 1;
 int count_sigtrap = 1;
 
 
-void sigint_handler(int s);
-void sigtrap_handler(int s);
-
-
-void sigint_handler(int s)
+void
+sigint_handler(int s)
 {
     printf("\nI got SIGINT %d time(s) \n", count_sigint);
     ++count_sigint;
@@ -32,7 +29,8 @@ void sigint_handler(int s)
     }
 }
 
-void sigtrap_handler(int s)
+void
+sigtrap_handler(int s)
 {
     printf("I got SIGTRAP %d time(s) \n", count_sigtrap);
     if (count_sigtrap % 2 == 0) {
@@ -76,8 +74,8 @@ void sigtrap_handler(int s)
 
 
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
+
     signal(SIGINT, sigint_handler);
     signal(SIGTRAP, sigtrap_handler);
 

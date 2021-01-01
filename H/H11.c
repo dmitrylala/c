@@ -6,8 +6,7 @@ int main(int argc, char **argv) {
     int fd[2];
     pipe(fd);
 
-    int pid;
-    if ((pid = fork()) == 0) {
+    if (fork() == 0) {
 
         dup2(fd[1], 1);
 

@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-double avg(int);
-
-double avg(int n) {
+double
+avg(int n)
+{
     double sum = 0, x, res;
     for(int i = 0; i < n; ++i) {
         scanf("%lf", &x);

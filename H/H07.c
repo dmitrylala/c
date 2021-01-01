@@ -11,13 +11,32 @@
 #include <stdlib.h>
 
 
-void prepare_data(const char *);
-void invert_data(const char *);
-void print_data(const char *);
+void prepare_data(const char *name);
+void invert_data(const char *name);
+void print_data(const char *name);
 
+
+int main(void) {
+
+    const char *file_name = "data.bin";
+
+    // Preparing data
+    prepare_data(file_name);
+
+    // Inverting data in file
+    invert_data(file_name);
+
+    // Data output
+    print_data(file_name);
+    remove(file_name);
+
+    return 0;
+}
 
 // Writing data from input stream to file
-void prepare_data(const char *name) {
+void
+prepare_data(const char *name)
+{
     int n, number;
     FILE *f = fopen(name, "w");
 
@@ -29,7 +48,7 @@ void prepare_data(const char *name) {
     printf("Enter the amount of numbers: ");
     scanf("%d", &n);
     printf("Enter %d number(s): ", n);
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         scanf("%d", &number);
         fwrite(&number, sizeof(int), 1, f);
     }
@@ -38,7 +57,9 @@ void prepare_data(const char *name) {
 }
 
 // Inverting data in file
-void invert_data(const char *name) {
+void
+invert_data(const char *name)
+{
     long pos, n;
     int num1, num2, i = 0;
     FILE* f = fopen(name, "r+");
@@ -71,7 +92,9 @@ void invert_data(const char *name) {
 
 
 // File output
-void print_data(const char *name) {
+void
+print_data(const char *name)
+{
     int number;
     long pos, n;
     FILE *f = fopen(name, "r");
@@ -87,29 +110,11 @@ void print_data(const char *name) {
     fseek(f, 0L, SEEK_SET);
 
     printf("Your numbers after inverting: ");
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         fread(&number, sizeof(int), 1, f);
         printf("%d%c", number, ' ');
     }
     printf("\n");
 
     fclose(f);
-}
-
-
-int main(void) {
-
-    const char *file_name = "data.bin";
-
-    // Preparing data
-    prepare_data(file_name);
-
-    // Inverting data in file
-    invert_data(file_name);
-
-    // Data output
-    print_data(file_name);
-    remove(file_name);
-
-    return 0;
 }
