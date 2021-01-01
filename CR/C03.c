@@ -8,7 +8,7 @@ int main(void) {
     char s[MAXLEN] = "\0";
     char temp[MAXLEN], res[MAXLEN] = "\0";
 
-    while(fgets(s, MAXLEN, stdin)) {
+    while (fgets(s, MAXLEN, stdin)) {
         strcpy(temp, s);
         if (strlen(temp) > max) {
             max = strlen (temp);

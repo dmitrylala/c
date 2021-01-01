@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
     int temp_arr[256] = {0};
     int flag = 0;
     printf("%s%c", argv[0], ' ');
@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
         }
     }
     printf("%s", "-- ");
-    for (int i = 0; i < argc; ++i){
+    for (int i = 0; i < argc; ++i) {
         if (temp_arr[i] == 1) {
             printf("%s%c", argv[i], ' ');
         }
