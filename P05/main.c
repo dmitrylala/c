@@ -1,29 +1,13 @@
-#include <stdio.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
-
-void
-invitation(void)
-{
-    printf("\033[1;30;91m");
-
-    // let's assume that current path suits into string with length = 100
-    char s[100];
-    char *res = NULL;
-    res = getcwd(s, 100);
-    printf("%s", res);
-    printf("\x1b[0m");
-    printf("\x1b[96m");
-    printf("\u27A4 ");
-    printf("\x1b[0m");
-    fflush(stdout);
-}
+#include "utilities.h"
 
 
 int main(int argc, char **argv) {
 
     invitation();
+    int status;
     while (1) {
 
         if (fork() == 0) {
@@ -31,7 +15,12 @@ int main(int argc, char **argv) {
             perror("my_shell: exec error");
             return 1;
         }
-        wait(NULL);
+        wait(&status);
+
+        if (status != 0) {
+            fprintf(stderr, "status: %d\n", status);
+            break;
+        }
 
         invitation();
     }
