@@ -26,7 +26,7 @@ print_number(int string_number, int n_flag)
             number /= 10;
         }
         char *buf1 = NULL;
-        ERR_MEM((buf1 = malloc(sizeof(*buf1) * count_digits)));
+        ERR_MEM((buf1 = malloc(count_digits * sizeof *buf1)));
         char buf2[] = {":"};
 
         sprintf(buf1, "%d", string_number);
