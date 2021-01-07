@@ -32,3 +32,15 @@ str_in(const int fd)
 
     return str;
 }
+
+double
+get_rand(void)
+{
+    return rand() * 1.0 / RAND_MAX;
+}
+
+double
+get_rand_range(const double min, const double max)
+{
+    return get_rand() * (max - min) + min;
+}

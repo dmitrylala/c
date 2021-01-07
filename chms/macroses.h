@@ -1,3 +1,16 @@
+// errors
+#define ERR_MEM_ALLOC 1
+#define SYS_ERR 2
+#define CRIT_ERR 3
+#define WRONG_INPUT 4
+#define BAD_FD 5
+#define WRONG_SIZE 6
+#define NO_SUCH_INDEX 7
+#define WRONG_INDEX 8
+#define NO_METHOD 9
+#define WRONG_METHOD 10
+
+
 // macroses
 #define ERR_MEM(call, err) \
     do { \
@@ -61,9 +74,19 @@
             } else if (((call) == -1) || ((call) == SYS_ERR)) { \
                 fprintf(stderr, "Error in system call\n"); \
             } else if ((call) == WRONG_INPUT) { \
-                fprintf(stderr, "Error: wrong matrix input\n"); \
+                fprintf(stderr, "Error: wrong input\n"); \
             } else if ((call) == BAD_FD) { \
                 fprintf(stderr, "Error: bad file descriptor\n"); \
+            } else if ((call) == WRONG_SIZE) { \
+                fprintf(stderr, "Error: bad sizes\n"); \
+            } else if ((call) == NO_SUCH_INDEX) { \
+                fprintf(stderr, "Error: no such index\n"); \
+            } else if ((call) == WRONG_INDEX) { \
+                fprintf(stderr, "Error: wrong index\n"); \
+            } else if ((call) == NO_METHOD) { \
+                fprintf(stderr, "Error: no method entered\n"); \
+            } else if ((call) == WRONG_METHOD) { \
+                fprintf(stderr, "Error: wrong method\n"); \
             } \
             return (call); \
         } \

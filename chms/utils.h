@@ -6,12 +6,12 @@
 #include "macroses.h"
 
 
-// errors
-#define ERR_MEM_ALLOC 1
-#define SYS_ERR 2
-#define CRIT_ERR 3
-
-
 // functions
 char *
 str_in(const int fd);
+
+double
+get_rand(void);
+
+double
+get_rand_range(const double min, const double max);
