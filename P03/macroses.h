@@ -33,7 +33,6 @@
                     } \
                     while (0)
 
-
 #define RAISE_2(call) do { \
                         err = call; \
                         if (err != 0) { \

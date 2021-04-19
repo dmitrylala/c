@@ -14,29 +14,29 @@
 
 #define SAFE(msg, comm) if ((comm) == -1) {\
                             perror(msg);\
-                            exit(1);} 
-                   
-     
+                            exit(1);}
+
+
 void quit(int s) {
 	exit(0);
 }
-                       
+
 int
 main (void) {
 	unlink("file.txt"); // аналог remove()
 	int sock_fd;
 	SAFE("Socket", sock_fd = socket(AF_LOCAL, SOCK_STREAM, 0))
-	
+
 	struct sockaddr_un addr;
 	addr.sun_family = AF_UNIX;
 	strcpy(addr.sun_path, "file.txt");
-	
+
 	SAFE("Bind", bind(sock_fd, (struct sockaddr *) &addr, sizeof addr))
-	
+
 	SAFE("Listen", listen(sock_fd, 10))
-	
+
 	signal(SIGINT, quit);
-	
+
 	while (1) {
 		pid_t pid = getpid();
 		int cl_sock;
@@ -50,7 +50,7 @@ main (void) {
 				printf("Ping: %d\n", pid);
 				fflush(stdout);
 			}
-			SAFE("Shutdown", shutdown(cl_sock, SHUT_RDWR))
+			// SAFE("Shutdown", shutdown(cl_sock, SHUT_RDWR))
 			close(cl_sock);
 			exit(0);
 		}
@@ -59,7 +59,7 @@ main (void) {
 		while (waitpid(-1, &status, WNOHANG) > 1) {
 		}
 	}
-	
+
+    SAFE("Shutdown", shutdown(sock_fd, SHUT_RDWR))
 	close(sock_fd);
 }
- 
